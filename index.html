@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="penduScript.js"></script>
+    <title>Pendu Game</title>
+</head>
+<body>
+    <h1><a onclick="alerter()" href="#">Pendu</a></h1>
+    <p id="hiddenWord"></p>
+    <form>
+        <div>
+            <input type="text" id="GameCode" name="GameCode" placeholder="Code">
+        </div>
+    </form>
+    <div class="buttons">
+        <button id="startButton" onclick="sendCreate()">Create</button>
+        <button onclick="sendJoin()">Join</button>
+    </div>
+</body>
+</html>
