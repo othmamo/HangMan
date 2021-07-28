@@ -9,7 +9,7 @@
 <body>
     <h1><a onclick="alerter()" href="#">Pendu</a></h1>
     <p id="hiddenWord"></p>
-    <form>
+    <form id="CodeForm">
         <div>
             <input type="text" id="GameCode" name="GameCode" placeholder="Code">
         </div>
@@ -17,6 +17,15 @@
     <div class="buttons">
         <button id="startButton" onclick="sendCreate()">Create</button>
         <button onclick="sendJoin()">Join</button>
+    </div>
+
+    <form id="MessageForm">
+        <div>
+            <input type="text" id="SimpleMessage" name="Message" placeholder="Text">
+        </div>
+    </form>
+    <div class="buttons">
+        <button onclick="sendSimpleMessage()">Send</button>
     </div>
 </body>
 </html>

@@ -73,19 +73,15 @@ wss.on("connection", ws => {
             createGame(msgJson, ws);
         else if (msgJson["request"] === "Join game")
             joinGame(msgJson, ws);
-        else
-            wss.broadcast(msg, getGameCode(ws));
+        else if (msgJson["request"] === "Simple Message")
+        {
+            let gameCode = getGameCode(ws);
+            if (gameCode != null)
+                wss.broadcast(msgJson, gameCode);
+        }
     });
 });
 
 wss.broadcast = function broadcast(msg, gameCode) {
-   console.log(msg);
-   for (var wsClient in clients[gameCode])
-   {
-       wsClient.send(msg);
-   }
-   /*
-   wss.clients.forEach(function each(client) {
-       client.send(msg);
-   });*/
+   clients[gameCode].forEach(e => e.send(JSON.stringify(msg)));
 };

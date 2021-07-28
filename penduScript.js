@@ -51,7 +51,7 @@ function sendCreate()
 {
     let random = '_' + Math.random().toString(36).substr(2, 9);
     document.getElementById("GameCode").value = random;
-    let data = $('form').serializeArray();
+    let data = $('#CodeForm').serializeArray();
     let jsonData = formToJson(data);
     jsonData["request"] = "Create game";
     ws.send(JSON.stringify(jsonData));
@@ -59,9 +59,18 @@ function sendCreate()
 
 function sendJoin()
 {
-    let data = $('form').serializeArray();
+    let data = $('#CodeForm').serializeArray();
     let jsonData = formToJson(data);
+    console.log(jsonData);
     jsonData["request"] = "Join game";
+    ws.send(JSON.stringify(jsonData));
+}
+
+function sendSimpleMessage()
+{
+    let data = $('#MessageForm').serializeArray();
+    let jsonData = formToJson(data);
+    jsonData["request"] = "Simple Message";
     ws.send(JSON.stringify(jsonData));
 }
 
