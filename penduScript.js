@@ -5,8 +5,34 @@ ws.addEventListener("message", msg =>
 {
     let data = msg["data"];
     let msgJson = JSON.parse(data);
-    console.log("message received:\n", data);
+    console.log(msgJson);
+    if (msgJson["Request"] ===  "Load page")
+    {
+        reloadPage(msgJson["Content"]);
+    }
+    if (msgJson["Request"] === "Add Player")
+    {
+        addPlayerLobby(msgJson["Player name"]);
+    }
+
 });
+
+function addPlayerLobby(name)
+{
+    var ul = document.getElementById("QueueList");
+    var li = document.createElement("li");
+    li.setAttribute('id', name);
+    li.appendChild(document.createTextNode(name));
+    ul.appendChild(li);
+}
+
+function removePlayerLobby(name)
+{
+    var ul = document.getElementById("QueueList");
+    var li = document.getElementById("test1");
+    ul.removeChild(li);
+}
+
 
 function countOccurrences(list, elm)
 {
@@ -19,19 +45,9 @@ function countOccurrences(list, elm)
     return res;
 }
 
-class Player
+function reloadPage(content)
 {
-    constructor(wordLives)
-    {
-        this.wordLives = wordLives;
-        this.attempts = 0;
-    }
-
-    toString()
-    {
-        return `Word guesses left: ${this.wordLives}
-You have already commited ${this.attempts} attempts.`
-    }
+    document.body.innerHTML = content;
 }
 
 function formToJson(data)
@@ -53,7 +69,7 @@ function sendCreate()
     document.getElementById("GameCode").value = random;
     let data = $('#CodeForm').serializeArray();
     let jsonData = formToJson(data);
-    jsonData["request"] = "Create game";
+    jsonData["Request"] = "Create game";
     ws.send(JSON.stringify(jsonData));
 }
 
@@ -61,8 +77,7 @@ function sendJoin()
 {
     let data = $('#CodeForm').serializeArray();
     let jsonData = formToJson(data);
-    console.log(jsonData);
-    jsonData["request"] = "Join game";
+    jsonData["Request"] = "Join game";
     ws.send(JSON.stringify(jsonData));
 }
 
@@ -70,7 +85,7 @@ function sendSimpleMessage()
 {
     let data = $('#MessageForm').serializeArray();
     let jsonData = formToJson(data);
-    jsonData["request"] = "Simple Message";
+    jsonData["Request"] = "Simple Message";
     ws.send(JSON.stringify(jsonData));
 }
 
